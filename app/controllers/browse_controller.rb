@@ -41,17 +41,7 @@ class BrowseController < ApplicationController
   end 
 
   def view
-   @offset = params[:offset].to_i ||= 0 # set the query starting point, for pagination
-
-   begin
-    @image = Image.find(params[:id], :offset => @offset)
-   rescue ActiveRecord::RecordNotFound
-    logger.info("Failed Image lookup ID:#{params[:id]}")
-    flash[:notice] = "Image Not Found!"
-    #render :text => "Not found"
-    #redirect_to :action => "index"
-   end
-     
+    @image = Image.find(params[:id]) 
     # print meta tags & title 
     if @image.description != "None"
      @meta_title = @image.url + " - " + @image.description + " - #{@meta_title}"

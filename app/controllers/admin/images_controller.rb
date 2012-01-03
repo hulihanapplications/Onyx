@@ -35,15 +35,16 @@ class Admin::ImagesController < ApplicationController
  def create
    counter = 0
    flash[:notice] = ""
-   while(params["file_#{counter}".to_s] != "") # the first file is params[:file_0]
+   while(!params["file_#{counter}".to_s].blank?) # the first file is params[:file_0]
      proceed = false
      if params["file_#{counter}".to_s] != ""  && params[:url] == ""  #from their computer
-      filename = clean_filename(params["file_#{counter}".to_s].original_filename)
+      raw_filename = params["file_#{counter}".to_s].original_filename
+      filename = clean_filename(raw_filename)
       if check_filename(filename) #the filename isn't valid
        image = Magick::Image.from_blob(params["file_#{counter}".to_s].read).first    # read in image binary
        proceed = true
       else
-       flash[:notice] << "<div class=\"flash_failure\">#{params["file_#{counter}".to_s].original_filename} upload failed! Please make sure that this is an image file, and that it ends in .png .jpg .jpeg .bmp or .gif </div> "     
+       flash[:notice] << "<div class=\"flash_failure\">#{filename} upload failed! Please make sure that this is an image file, and that it ends in .png .jpg .jpeg .bmp or .gif </div> "     
        redirect_to :action => "new"
       end 
   
@@ -57,7 +58,6 @@ class Admin::ImagesController < ApplicationController
        @file.write(@url_file.read) # copy the image
        if @file # temp file got copied successfully.
         # create files from tmp file
-        # Dave: normally, I'd use the create_image or whatever method in this controller, but those are only written to handle file upload forms(it uses original_filename), not actual $
         @file.close
         @file = open(tmp_path + "/" + filename, "rb") #reopen the temp file
         image = Magick::Image.from_blob(@file.read).first    # read in image binary
@@ -153,8 +153,8 @@ class Admin::ImagesController < ApplicationController
 
 private
  def clean_filename(filename) 
-  @bad_chars = ['&', '\+', '%', '!', ' ', '/'] #string of bad characters
-  for char in @bad_chars
+  bad_chars = ['&', '\+', '%', '!', ' ', '/'] #string of bad characters
+  for char in bad_chars
    filename = filename.gsub(/#{char}/, "_") # replace the bad chars with good ones!
   end
   return filename 
