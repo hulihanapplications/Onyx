@@ -1,0 +1,9 @@
+<div style="font-size:10px" align=left>
+ <span class="normal_post_tags">
+  <% counter = 1 %>
+  <% for tag in @image.tags %>
+    <%= link_to "#{tag.name}", "/tag/#{tag.name}", :class => "tag_link", :style => "font-size:inherit" %><% if counter != @image.tags.size %>,<% end %> 
+    <% counter += 1 %>
+  <% end %>
+ </span>
+</div>

@@ -1,0 +1,58 @@
+   <table class="image_table_details" cellpadding=5 align=left>
+    <tr class="row_b"><td colspan=2 align=center><b><i>Category Info</i></b></td></tr>
+    <tr class="row_a"><%# Arrows %>
+     <td align=center colspan=2>
+	<table><tr>
+	<td>
+ 	<% if @count == 1 %><%# This is the first image. %>
+	 <%= image_tag("/themes/#{@theme}/images/arrow_left_disabled.png", :alt => "left_arrow") %>
+	<% else %>
+	 <%= link_to (image_tag("/themes/#{@theme}/images/arrow_left_enabled.png", :alt => "left_arrow", :border => 0)), {:action => "view", :id => @last} %> 
+	<% end %>
+	</td>
+	<td valign=middle>Viewing <b><%= @count %></b> of <b><%= @images_in_category.size %></b> images</td>
+	<td>
+	<% if @count == @images_in_category.size %><%# There is only one image in this category %>
+	 <%= image_tag("/themes/#{@theme}/images/arrow_right_disabled.png", :alt => "left_arrow") %>
+	<% else %>
+	 <%= link_to (image_tag("/themes/#{@theme}/images/arrow_right_enabled.png", :alt => "left_arrow", :border => 0)), {:action => "view", :id => @next} %>
+	<% end %>
+	</td>
+	</tr></table>
+     </td>
+    </tr>
+    <tr class="row_b"><%# Pinkies %>
+     <td align=center colspan=2>
+       <% for pinky in @random_pinkies %>
+        <% pinky_class = "none" %>
+        <% pinky_class = "pinky_selected" if (pinky.id == params[:id].to_i) %>
+        <%= link_to (image_tag("pinky/#{pinky.pinky_url}", :alt => pinky.pinky_url, :border => 0,:class => pinky_class)), {:action => "view", :id => pinky.id} %>
+		
+	
+		
+		
+		
+       <% end %>
+     </td>
+    </tr>
+    <tr class="row_a"><%# SlideShow %>
+     <td align=center>
+      <table><tr>
+      <td>Play Slideshow&nbsp;</td>
+      <td>
+       <a href="/images/normal/<%= @image.url %>" title="<%= @image.description %>" rel="lightbox[<%= @image.category.id %>]">
+        <img src="/themes/<%= @theme %>/images/slideshow.png" border=0>
+       </a>
+
+       <% for image in @images_in_category %>
+         <% if image.id != @image.id %>
+ 	 <a href="/images/normal/<%= image.url %>" title="<%= image.description %>" rel="lightbox[<%= @image.category.id %>]" style="display:none">
+          HIDDEN
+         </a>
+         <% end %> 
+       <% end %> 
+      </td>
+      </tr></table>
+     </td>
+    </tr>
+   </table>

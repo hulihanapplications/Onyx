@@ -1,0 +1,31 @@
+<br>
+<a name="comments"></a>
+<table  class="comment_box">
+  <tr><td class="row_b" align=center><h3>Comments(<%= @image.comments.size %>)</h3></td></tr>
+   <% for @comment in @image.comments %>
+   <tr class="<%= cycle("row_a", "row_b") %> ">
+    <td style="width:200px" align=center >
+     <div style="padding:3px;" >
+     <b><%= h(@comment.name) %> says...</b><br>
+     <%= h(@comment.comment) %><br><br>
+     <div class="normal_post_date"><%= "#{@comment.created_at.strftime("%I:%M %p  %B %d, %Y")}" %></div>
+     </div>
+    </td>   
+   </tr>
+   <% end %>
+   <tr>
+    <td>
+     <br>
+     <% @comment = nil %>
+     <div align=left class="comment_form">
+      <%= render :partial => "comment_form" %>
+      </div>
+    </td>
+   </tr>
+  </table>
+
+<br>
+
+<br>
+<div align=left><%= link_to image_tag("arrow_left_green.png", :alt => "<< Back ", :border => 0), :action => "index" %></div>
+<br><br><br>

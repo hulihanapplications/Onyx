@@ -1,0 +1,30 @@
+<h1>Listing <b class="highlight"><%= @users.size %></b> Users</h1>
+
+<table cellpadding=0 cellspacing=0 class="list_table">
+  <tr>
+   <td><b>Username</b></td>
+   <td><b>First Name</b></td>
+   <td><b>Last Name</b></td>
+   <td><b>Created At</b></td>
+   <td><b>Last Updated</b></td>
+  </tr>
+  
+<% for user in @users %>
+  <tr class = "<%= cycle("row_a", "row_b") %>" >
+    <td style="width:100px"><%=h truncate(user.username, 30) %></td>
+    <td style="width:100px"><%=h truncate(user.first_name, 30) %></td>
+    <td style="width:100px"><%=h truncate(user.last_name, 30) %></td>
+    <td style="width:100px"><%= user.created_at.strftime("%I:%m %p %m/%d/%y")  %></td>
+    <td style="width:100px"><%= user.updated_at.strftime("%I:%m %p %m/%d/%y")  %></td>
+
+    <td style="width:50px"><div class="admin_view_bg"><%= link_to 'Show', :action => 'show', :id => user %></div></td>
+    <td style="width:50px"><div class="admin_edit_bg"><%= link_to 'Edit', :action => 'edit', :id => user %></div></td>
+    <td style="width:50px"><div class="admin_destroy_bg"><%= link_to 'Destroy', { :action => 'destroy', :id => user }, :confirm => 'Are you sure?', :method => :post %></div></td>
+  </tr>
+<% end %>
+</table>
+
+
+<br />
+
+<%= link_to 'New user', :action => 'new' %>

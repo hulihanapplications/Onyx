@@ -1,0 +1,7 @@
+<% form_tag :action => 'create_tag'  do %>
+<%= error_messages_for 'tag' %>
+<b>Name</b> <%= text_field 'tag', 'name', :class => "admin_input"  %>
+<%= hidden_field 'tag', 'image_id', :value => params[:id] %>
+<%= submit_tag "Add Tag" , :class => "admin_input" %>
+<% end %>
+

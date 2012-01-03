@@ -1,0 +1,38 @@
+<%# The Bottom navigation arrows! %>
+
+<% if @posts %>
+<table width="100%">
+ <tr>
+  <td align=left>
+ 
+   <% if @offset >= @posts_per_page %> <%# This is at least the second page of items, the pointer(offset) is at least past the first x(posts_per_page) items  %>
+   <%# Print out the left arrow %>
+   <table>
+    <tr>
+     <td><img src="/images/arrow_left.png" alt="view prev posts"></td>
+     <td>
+       <%= link_to "View Last #{pluralize(@posts.size, "post")}" ,:action => "view_latest", :offset => (@offset.to_i - @posts_per_page.to_i) %>
+     </td>
+    </tr>
+   </table>
+   <% end %> 
+
+  </td>
+  <td align=right>
+   <% @any_more = Post.find(:first, :offset => (@offset.to_i + @posts_per_page.to_i) + 1, :limit => 1 ) %>
+   <% if @any_more %><%# Test to see if there's more tickets on the next page %>
+   <%# Print out the right arrow %>
+   <table>
+    <tr>
+     <td>
+       <%= link_to "View Next #{pluralize(@posts_per_page.to_i, "post")}" ,:action => "view_latest", :offset => (@offset + @posts_per_page) %>
+     </td>
+     <td><img src="/images/arrow_right.png" alt="view more posts"></td>
+    </tr>
+   </table>
+   <% end %>
+
+  </td>
+ </tr>
+</table>
+<% end %> 

@@ -1,0 +1,135 @@
+<br>
+<fieldset>
+ <legend>Add An Image</legend>
+ <% form_tag({:action => 'create'}, :multipart => true) do %>
+ <table cellpadding=5 cellspacing=5>   
+   <tr>
+   	<td valign=top>
+		<% max_uploadable_files = @maximum_uploadable_files %>
+   		From Your Computer
+	</td>
+	<td><input type=file name="file_0" id="my_file_element"> Select Up to <b><%= max_uploadable_files %></b> images to upload.
+		    <div id="files_list"></div>	
+		    <script>
+			<!-- Create an instance of the multiSelector class, pass it the output target and the max number of files -->
+			var multi_selector = new MultiSelector( document.getElementById( 'files_list' ), <%= max_uploadable_files %>  );
+			<!-- Pass in the file element -->
+			multi_selector.addElement( document.getElementById( 'my_file_element' ) );
+		    </script>
+	</td>
+   </tr>
+   <tr><td><b><i>or</i></b> from a URL</td><td><input type=text name="url" size="80"></td></tr> 
+   <tr><td>Description</td><td> <%= text_field 'image', 'description', :size => 85 %></td></tr>
+   <tr><td>Category</td>
+   <td>
+    <select name="image[category_id]">
+     <% for category in @categories %> 
+      <option value="<%= category.id %>"><%= category.name %></option>
+     <% end %> 
+    </select> 
+   </td>
+   </tr>
+   <tr><td>Add A Tag</td><td> <input type="text" name="tag"></td></tr>
+   <tr>
+    <td>
+     Resize to <%= @width %> x <%= @height %> pixels?
+	 <br>
+	 <%= link_to "Change Dimensions", {:action => "list", :controller => "admin/settings"}, :class => "admin_link", :style => "font-size:10px" %><br>
+    </td>
+    <td>
+     <input type="radio" name="resize" value="no" CHECKED>No
+     <input type="radio" name="resize" value="scale">Scale
+     <input type="radio" name="resize" value="cropped">Cropped
+     <input type="radio" name="resize" value="proportional">Proportional
+    </td>
+   </tr>
+ </table>
+
+ <br>
+
+ <table style="font-size:10px">
+   <tr><td colspan=2><b>Effects</b></td></tr>
+   <tr>
+    <td>
+     <div class="effect_box" align=center>
+       <img src="/images/examples/effects_example_monochrome.png"><br>
+       Monochrome<br>(Black and White)<br>
+       <input type="checkbox" name="effect_monochrome" value="yes"> 
+     </div>
+    </td>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_sepia.png"><br>   
+      Sepia<br>
+      <input type="checkbox" name="effect_sepia" value="yes">
+     </div>
+    </td>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_watermark.png"><br>   
+      Watermark<br>
+      <input type="checkbox" name="effect_watermark" value="yes">
+     </div>
+    </td>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_polaroid.png"><br>   
+      Polaroid<br>
+      <input type="checkbox" name="effect_polaroid" value="yes">
+     </div>
+    </td>
+   
+   </tr>
+   <tr>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_rotate_90_cw.png"><br>   
+      Rotate 90&deg; Clockwise<br>
+      <input type="checkbox" name="effect_rotate_90_cw" value="yes">
+     </div>
+    </td>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_rotate_90_ccw.png"><br>   
+      Rotate 90&deg; Counter Clockwise<br>
+      <input type="checkbox" name="effect_rotate_90_ccw" value="yes">
+     </div>
+    </td>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_rotate_180.png"><br>   
+      Rotate 180&deg; Degrees<br>
+      <input type="checkbox" name="effect_rotate_180" value="yes">
+     </div>
+    </td>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_gaussian_blur.png"><br>   
+      Gaussian Blur<br>
+      <input type="checkbox" name="effect_gaussian_blur" value="yes">
+     </div>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <div class="effect_box" align=center>
+      <img src="/images/examples/effects_example_negate.png"><br>   
+      Negate<br>
+      <input type="checkbox" name="effect_negate" value="yes">
+     </div>
+    </td>
+   </tr>
+  <tr><td colspan=2><%= submit_tag "Create" %></td></tr>
+ </table>
+
+ <% end %>
+</fieldset>
+<br>
+
+
+
+
+
+
+
+<%= link_to 'Back', :action => 'list' %>

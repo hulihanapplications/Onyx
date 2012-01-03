@@ -1,0 +1,10 @@
+<% if params[:action] == "view" %>
+ <%= truncate(@image.url,50) %> :: 
+ <%= link_to truncate(@image.category.name, 50),{:action => "view_category", :id => @image.category.id}, :class => "top_bar_link" %> :: 
+ <%= link_to @title, {:action => "index"}, :class => "top_bar_link" %>
+<% elsif  params[:action] == "view_category" %>
+ <%= @category.name  %> ::
+ <%= link_to @title, {:action => "index"}, :class => "top_bar_link" %>
+<% else %> 
+ <%= link_to @title, {:action => "index" , :controller => "../browse"}, :class => "top_bar_link" %>
+<% end %>

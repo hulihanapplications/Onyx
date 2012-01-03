@@ -1,0 +1,84 @@
+<div style="padding:5px">
+<br>
+<fieldset>
+ <legend><span class="welcome_title"><%= @welcome_title %></span></legend>
+ <div class="welcome_message"><%= @welcome_message %></div>
+</fieldset>
+<br>
+
+<fieldset>
+ <legend>Newest Images</legend>
+  <% if @latest_images.size == 0 %>
+   No Images Found.
+  <% else %>
+  <table cellpadding=1>
+   <tr>
+    <% for image in @latest_images %> 
+    <td valign=top align=center style="font-size:10px">
+	     <div class="thumbnail_box" id="thumbnail_box_<%= image.id %>" onmouseover="focus_thumbnail('thumbnail_box_<%= image.id %>')" onmouseout="blur_thumbnail('thumbnail_box_<%= image.id %>')">     
+		 
+		 	 <% if @tooltips_enabled == "1" %>
+			    <a href="/browse/view/<%= image.id%>"  onmouseout="UnTip()" onmouseover="Tip('<div class=\'tooltip\'><img src=\'/images/normal/<%= image.url %>\' width=\'<%= @tooltip_width %>\'></div> ')">
+			    	<img alt="<%= image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= image.url %>" title="<%= image.description %>" />
+				</a>
+		 	 <% else %>
+			    <a href="/browse/view/<%= image.id%>" >
+			    	<img alt="<%= image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= image.url %>" title="<%= image.description %>" />
+				</a>
+	 		 <% end %>
+
+
+			 <br>
+			  
+		  <div class="thumbnail_image_name">
+			  <% if image.description == "No Description." %>
+				  <b><%= truncate(image.url, 28) %></b>
+			  <% else %>
+			    <b><%= truncate(image.description, 28) %></b>
+			  <% end %>  	
+		  </div>
+	
+		  <span style="font-size:10px"><%= friendly_date(image.created_at) %></span>
+		  <br>
+		  <a href="/browse/view/<%= image.id %>#comments"><%= image.comments.size %> Comments</a><br>
+
+		 </div>
+    </td> 
+    <% end %>
+   </tr> 
+  </table>
+  <% end %>	
+</fieldset>
+
+<br>
+
+<fieldset>
+ <legend>Latest Comments</legend>
+  <% if @latest_comments.size == 0 %>
+   No Comments Found.
+  <% else %>
+  <table width="100%" style="font-size:10px">
+    <% for comment in @latest_comments %> 
+    <tr>
+     <td valign=top align=center>
+       <table width="100%" cellpadding=1 cellspacing=0 align=left class="comment_box">
+        <tr>
+         <td style="width:15px;">
+           <%= link_to image_tag("pinky/#{comment.image.pinky_url}", :alt => "#{comment.comment}", :class => "thumb_link_image"), { :action => "view", :id => comment.image.id }, :popup => false %>
+		 </td>
+         <td align=left><b><%= h truncate(comment.name, 20) %></b>: <%= h truncate(comment.comment, 40) %></td>
+         <td valign=middle  align=right style="width:150px"><span style="font-size:10px"><%= comment.image.created_at.strftime("%D - %I:%m %p") %></span></td>
+        </tr>
+       </table>
+     </td> 
+    </tr> 
+    <% end %>
+  </table>
+  <% end %>	
+</fieldset>
+
+
+
+
+
+</div>

@@ -1,0 +1,47 @@
+<h1>Editing image</h1>
+
+		 	 <% if @tooltips_enabled == "1" %>
+			    <a href="/browse/view/<%= @image.id%>"  onmouseout="UnTip()" onmouseover="Tip('<div class=\'tooltip\'><img src=\'/images/normal/<%= @image.url %>\' width=\'<%= @tooltip_width %>\'></div> ')">
+			    	<img alt="<%= @image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= @image.url %>" title="<%= @image.description %>" />
+				</a>
+		 	 <% else %>
+			    <a href="/browse/view/<%= @image.id%>" >
+			    	<img alt="<%= @image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= @image.url %>" title="<%= @image.description %>" />
+				</a>
+	 		 <% end %>
+
+<% form_tag :action => 'update', :id => @image do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<br>
+<fieldset>
+ <legend><b>Tags(<%= @tags.size %>)</b></legend>
+ <% if @tags.size > 0 %>
+  <%= render :partial => "list_tags" %>
+ <% else %>
+  No Tags Found.	
+ <% end %>
+</fieldset>
+
+<br>
+
+<fieldset>
+ <legend> <b>Add A Tag</b></legend>
+<%= render :partial => "tag_form" %>
+</fieldset>
+<br>
+<fieldset>
+ <legend> <b>Comments(<%= @comments.size %>)</b></legend>
+ <% if @comments.size > 0 %>
+  <%= render :partial => "list_comments" %>
+ <% else %>
+  No Comments Found.
+ <% end %>
+
+</fieldset>
+
+<br>
+<%= link_to 'Show', :action => 'show', :id => @image %> |
+<%= link_to 'Back', :action => 'list' %>

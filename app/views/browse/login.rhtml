@@ -1,0 +1,11 @@
+<br><br>
+<fieldset>
+ <legend>Log In</legend>
+   <% form_for :user,  :url => { :action => "login", :controller => "admin/users" } do |f| %>
+   <table style="border-spacing:3px">
+    <tr><td>Username</td><td> <%= f.text_field :username  %></td></tr>
+    <tr><td>Password</td><td> <%= f.password_field :password %></td></tr>
+    <tr><td colspan=2 align=right><%= submit_tag "Log In"  %></td></tr>
+   </table>
+   <% end %>
+</fieldset>

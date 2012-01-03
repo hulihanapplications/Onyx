@@ -1,0 +1,43 @@
+Hi! Welcome to the Readme for the Onyx Gallery Software.
+ 
+ Onyx is an open source Ruby on Rails based image gallery. It is designed to be
+ clean and intuitive, flexible, customizable, and quick. 
+
+Features
+  - Onyx allows you to organize your favorite images several different ways. 
+    You can add categories, subcategories, and even tags.
+  - Add images from your computer or directly feed in an image url from the net. 
+  - Protected admin area to manage your gallery securely.
+  - View images via slideshow, individually, or categorized.
+  - Built in RSS Generator so everyone can view your latest images.
+  - Much more!
+
+Installing 
+  - Read the file INSTALL for more details. It's pretty easy!
+
+Requirements
+  - This app does require the Rmagick(1.15.12 or better) gem to function. Some 
+    photo effects(watermarking, polaroid) only work well with version 2+ 
+  - Like most Ruby on Rails applicatoins, Onyx also requires some type of 
+    database(mysql, sqlite, etc.).
+
+How to use Onyx
+  - After you install onyx, go to http://onyx.domain.com/ to view your gallery. 
+    This assumes you installed onyx to a subdomain called onyx.domain.com. To 
+    start adding images, go to http://onyx.domain.com/admin and log in with the 
+    default username and password, which are:
+     - Username: admin
+     - Password: admin
+    
+    After you're logged in, click on any of the menu items on right. We 
+    recommend adding an image FIRST, by clicking "Add Image". It's pretty 
+    self-explanatory after that. Be sure to look at all the tools you can use 
+    and let us know if you need any help or have any suggestions. 
+
+Enjoy Onyx! Visit our site: http://www.hulihanapplications.com to let us know
+about anything you're curious about or if you see any bugs/problems! We're constantly
+trying to update Onyx to make it the best open source gallery ever. We can't
+do that if we don't know what everyone wants, so if you see a feature you'd like, let
+us know, that's what we're here for!
+
+

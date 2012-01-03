@@ -1,0 +1,21 @@
+Hi, Thanks for downloading the Onyx Gallery!
+
+To install this application, please follow the following steps:
+
+1. Download it! Which I assume you've already done....
+
+2. Configure your database(s) in config/database.yml
+   * Note: Onyx requires a database to store image information in. 
+           Most ruby on rails applications use a database to store 
+           information. By default, Onyx uses Mysql.
+
+3. Run 'rake db:migrate' from the command line(typically using ssh).
+
+4. That's it! Visit your application using fastcgi/mongrel/webrick.
+
+* Note: If you need any additional help, see the README section, it 
+tells you everything you need to get started, or contact us, 
+post in our forum, etc.
+
+                www.hulihanapplications.com
+

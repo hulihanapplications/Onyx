@@ -1,0 +1,76 @@
+<% if @tooltips_enabled == "1" %>
+			    <style type="text/css">.tooltip{width:<%= @tooltip_width %>px;}</style>
+<% end %>
+
+
+<h1>Edit Settings</h1>
+<%# form_tag ({:action => "update_faster"}) do %>
+<% form_tag ({:action => "update"}) do %>
+<table class="settings_table">
+ <% for setting in @settings %>
+ <% @class = cycle("row_a", "row_b") %>
+ <tr class="<%= @class %>">
+  <td><span class="setting_name"><%= setting.name %></span></td>
+  <td align=right>
+   <% if setting.item_type == "string" %> 
+    <input type=text name="setting[<%= setting.name %>]" value="<%= setting.value %>" class="setting_item_string">
+   <% elsif setting.item_type == "bool" %>
+	On<input type="radio" value="1"  name="setting[<%= setting.name %>]" <% if setting.value == "1"  %>CHECKED<% end %>>
+	&nbsp;Off<input type="radio" value="0"  name="setting[<%= setting.name %>]" <% if setting.value == "0" %>CHECKED<% end %>>
+	<br><br>
+   <% else %> 
+    <%= "Unknown setting type: #{setting.item_type}" %> 
+   <% end %>
+  </td>
+ </tr>
+ <tr class="<%= @class %>">
+  <td colspan=2>
+   <div class="setting_description">
+    <%= setting.description %>
+   </div>
+  </td>
+ </tr>
+ <% end %>
+</table>
+<div align=left><%= submit_tag "Update Settings" %></div>
+<% end %>
+
+<br><br>
+
+<h1>Change Theme</h1>
+<% form_tag ({:action => "update_theme"}) do %>
+<table width="100%" cellpadding=3 cellspacing=3 class="row_box" style="margin:5px">	
+ <% for theme in @themes %>
+ <% @class = cycle("row_a", "row_b") %>
+ <tr class="<%= @class %>">
+  <td style="width:100px;height:100px;" align=center>
+  	<% screenshot = "/themes/#{theme}/screenshot.png" %>
+  	<% screenshot_thumbnail = "/themes/#{theme}/screenshot_thumbnail.png" %>
+  	<% if File.exists?(RAILS_ROOT + "/public" + screenshot)%>
+	 	 <% if @tooltips_enabled == "1" %>
+			    <a href="<%= screenshot %>" class="thumb_link" onmouseout="UnTip()" onmouseover="Tip('<div class=\'tooltip\'><img src=\'<%= screenshot %>\' width=\'<%= @tooltip_width %>\'></div>')">
+			    	<img alt="<%= theme %>" class="thumb_link_image" src="<%= screenshot_thumbnail %>" title="<%= theme %>" />
+				</a>
+	 	 <% else %>
+ 			    <a href="<%= screenshot %>" class="thumb_link">
+				    <img alt="<%= theme %>" class="thumb_link_image" src="<%= screenshot_thumbnail %>" title="<%= theme %>" />
+				</a>
+ 		 <% end %>
+	<% else %>
+		No Screenshot Available.
+	<% end %>
+  </td>
+  <td valign=middle align=left style="padding-left:10px;">
+  	<h3>
+  		<%= theme%>
+  	</h3>
+  </td>
+  <td align=right style="padding-right:20px">
+	<input type="radio" name="theme" value="<%= theme %>" <% if theme == @theme %>CHECKED<% end %>>
+  </td>
+ </tr>
+ <% end %>
+</table>
+	<br><br>
+	<%= submit_tag "Update Theme" %>
+<% end %>

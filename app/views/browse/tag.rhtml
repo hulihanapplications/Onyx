@@ -1,0 +1,93 @@
+<div style="margin:3px">
+  <br><br>
+ <table width="100%" cellspacing=0 cellpadding=0 class="category_heading_table">
+ 	<tr>
+ 		<td align=left valign=top >
+			<h2 style="margin-bottom:0px;text-align:left;padding:3px"><font size=2>Images Tagged </font><%= h params[:tag] %></h2>			
+ 		</td>
+		<td align=right valign=top style="width:160px">
+	 	  <div align=right><h2><%= @other_tags.size %> Images</h2></div>
+		</td>
+ 	</tr>
+ </table>
+
+  <table style="font-size:10px;width:100%">
+  	<tr>
+ 		<td align=left valign=top >
+		
+ 		</td>
+		<td align=right valign=top style="width:130px">
+		
+  		  <% if @other_tags.size != 0 %> 
+			 <table style="font-size:10px">
+			 	<tr>
+				  <td>Play Slideshow&nbsp;</td>
+				  <td>
+					   <a href="/images/normal/<%= @first_tag.image.url %>" title="<%= @first_tag.image.description %>" rel="lightbox[<%= @first_tag.image.category.id %>]">
+					    <img src="/themes/<%= @theme %>/images/slideshow.png" border=0>
+					 </a>
+					   <% for tag in @other_tags %>
+					    <% if tag.image.id != @first_tag.image.id %>
+					     <a href="/images/normal/<%= tag.image.url %>" title="<%= tag.image.description %>" rel="lightbox[<%= tag.image.category.id %>]"style="display:none">HIDDEN</a>
+					    <% end %>
+					   <% end %>
+				  </td>
+				</tr>
+			  </table>
+			<% end %>
+		</td>
+ 	</tr>
+ </table>
+ 
+
+<br>
+
+<table cellpadding=3 cellspacing=3 class="category_box">
+ <% counter = 0%> 
+ <tr>
+  <% for tag in @other_tags %>
+   <% if counter == 5 %> <%# this is how many images are shown per row. %>   
+    </tr><tr>
+    <% counter = 0 %>
+   <% end%>
+     <td valign=top align=center>
+	     <div class="thumbnail_box" id="thumbnail_box_<%= tag.image.id %>" onmouseover="focus_thumbnail('thumbnail_box_<%= tag.image.id %>')" onmouseout="blur_thumbnail('thumbnail_box_<%= tag.image.id %>')">     
+		 	 <% if @tooltips_enabled == "1" %>
+			    <a href="/browse/view/<%= tag.image.id%>"  onmouseout="UnTip()" onmouseover="Tip('<div class=\'tooltip\'><img src=\'/images/normal/<%= tag.image.url %>\' width=\'<%= @tooltip_width %>\'></div> ')">
+			    	<img alt="<%= tag.image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= tag.image.url %>" title="<%= tag.image.description %>" />
+				</a>
+		 	 <% else %>
+			    <a href="/browse/view/<%= tag.image.id%>" >
+			    	<img alt="<%= tag.image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= tag.image.url %>" title="<%= tag.image.description %>" />
+				</a>
+	 		 <% end %>
+			 <br>
+		 
+		 
+		 
+		  <div class="thumbnail_image_name">
+			  <% if tag.image.description == "No Description." %>
+				  <b><%= truncate(tag.image.url, 28) %></b>
+			  <% else %>
+			    <b><%= truncate(tag.image.description, 28) %></b>
+			  <% end %>  	
+		  </div>
+	
+		  <span style="font-size:10px"><%= friendly_date(tag.image.created_at) %></span>
+		  <br>
+		  <a href="/browse/view/<%= tag.image.id %>#comments"><%= tag.image.comments.size %> Comments</a><br>
+		  <a href="/images/normal/<%= tag.image.url %>" rel="lightbox" title="<% if tag.image.description != "None" %><%= tag.image.description %><% end %>" ><img src="/themes/<%= @theme %>/images/quickview.png" border=0></a>
+		 </div>
+	</td> 
+  <% counter += 1 %>
+  <% end %>
+ </tr> 
+</table>
+
+
+<br>
+
+
+
+
+

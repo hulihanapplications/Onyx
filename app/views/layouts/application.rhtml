@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/browse/rss" />
+
+
+<% @theme ||= "mocha" %>
+
+<link href="/themes/<%= @theme %>/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="/themes/<%= @theme %>/javascripts/prototype.js" type="text/javascript"></script>
+<script src="/themes/<%= @theme %>/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+
+<% if params[:action] == "view" || params[:action] == "view_category" || params[:action] == "tag" %>
+	<script src="/themes/<%= @theme %>/javascripts/lightbox_slideshow.js" type="text/javascript"></script>
+<% end %> 
+
+<script src="/themes/<%= @theme %>/javascripts/onyx.js" type="text/javascript"></script>
+
+<title><%= @meta_title %></title>
+<meta name="keywords" content="<%= h(truncate(@meta_keywords, 200)) %>">
+<meta name="description" content="<%= h(truncate(@meta_desc, 300)) %>">
+
+<style type="text/css">.tooltip{width:<%= @tooltip_width %>px;}</style>
+</head>
+
+<body> 
+ <% if @tooltips_enabled == "1" %>
+	  <script src="/themes/<%= @theme %>/javascripts/wz_tooltip.js" type="text/javascript"></script>
+	  <%# Enable Toolips, see http://www.walterzorn.com/tooltip/tooltip_e.htm#download for more settings to customize tooltip effects. %>
+	  <%# Also, take a look at javascripts/wz_tooltip.js to change the tooltip settings, you can change transparency, shadowing, colors, and other cool settings for the tooltips. %>
+ <% end %>
+
+
+
+<table class="main_table" cellspacing=0 cellpadding=0>  
+ <tr>
+  <td colspan=2>
+
+    <table width="100%" class="top_bar" cellpadding=3>
+     <tr>
+      <td align=left><%= link_to image_tag("/themes/#{@theme}/images/rss_small.png", :alt => "view rss feed", :border => 0),                :action => "rss", :controller => "browse"    %></td>
+      <td align=right valign=middle> 
+       <%= render :partial => "browse/top_bar" %>
+      </td>
+     </tr>
+    </table>
+
+  </td>
+ </tr>
+ <tr>
+  <td valign=top class="main_column">
+
+	<table class="content_table">
+		<tr>
+			<td class="content_column" valign=top>
+				   <div class="main_bg_top"></div> 
+				   <div class="main_bg_middle">
+				    <div class="flash"><%= flash[:notice] %></div>
+				    <div id="main_content">
+				    	<%= yield  %>
+					</div>
+				   </div>
+				   <div class="main_bg_bottom"> </div>
+			</td>
+			<td class="right_column" align=right valign=top>
+			   <%# Right Menu %> 
+			   <% if params[:action] != "view" %>
+			    <div class="right_menu">
+			     <% if params[:controller] != "browse" %>
+				     <%= render :partial => "admin/admin_menu" %>
+				 <% else %>
+				     <%= render :partial => "browse/right_menu" %>
+				 <% end %>
+			    </div>
+			   <% end %>
+			</td>
+		</tr>
+	</table>
+	
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2>
+	<br><br>
+	<div class="bottom_bar" align=center id="bottom_bar">
+		<table width="100%">
+			 <tr>
+				<td valign=middle style="width:60px">Powered By</td>
+				<td align=left><%= link_to (image_tag "/themes/#{@theme}/images/onyx_tiny.png", :border => 0), "http://www.hulihanapplications.com/projects_onyx.php" %></td>
+				<td valign=middle align=right> This site is best displayed in FireFox 1.5+, IE 7+, and Opera 9</td>
+			
+			 </tr>
+		</table>
+	</div>
+  </td>
+ </tr>
+</table>
+
+</body>
+
+</html>

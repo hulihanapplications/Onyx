@@ -1,0 +1,14 @@
+
+   <table class="image_table_details" cellpadding=5 align=left>
+    <tr class="row_b"><td colspan=2 align=center><b><i>Image Info</i></b></td></tr>
+    <tr class="row_a"><td><b>Image Name</b></td><td><%= @image.url %></td></tr>
+    <tr class="row_b"><td><b>Added</b></td><td><%= @image.created_at.strftime("<b>%m/%d/%y</b> - %I:%M %p") %></td></tr>
+    <tr class="row_a"><td><b>Description</b></td><td><%= h(@image.description) %></td></tr>
+    <tr class="row_b"><td><b>Category</b></td><td><%= link_to "#{@image.category.name}", {:action =>"view_category", :id => @image.category.id}, :class => "category_link", :style => "font-size:inherit"  %></td></tr>
+    <tr class="row_a"><td><b>Dimensions</b></td><td><%=  "#{@image.width} x #{@image.height}"  %></td></tr>
+    <tr class="row_b"><td><b><a href="#comments">Comments</a></b></td><td><%= (@image.comments.size) %></td></tr>
+    <% if @image.tags.size != 0 %>
+     <tr class="row_a"><td><b>Tags</b></td><td><%= render :partial => "view_tags" %></td></tr>
+    <% end %>
+   </table>
+

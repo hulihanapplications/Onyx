@@ -1,0 +1,29 @@
+<%= error_messages_for 'image' %>
+
+<!--[form:image]-->
+<p><label for="image_url">Url</label><br/>
+<%= text_field 'image', 'url'  %></p>
+
+<p><label for="image_thumb_url">Thumb url</label><br/>
+<%= text_field 'image', 'thumb_url'  %></p>
+
+<p><label for="image_description">Description</label><br/>
+<%= text_field 'image', 'description'  %></p>
+
+<p><label for="image_created_at">Created at</label><br/>
+<%= datetime_select 'image', 'created_at'  %></p>
+
+<p><label for="image_updated_at">Updated at</label><br/>
+<%= datetime_select 'image', 'updated_at'  %></p>
+<!--[eoform:image]-->
+
+Category<br>
+    <select name="image[category_id]">
+     <% for category in @categories %>
+   
+      <option value="<%= category.id %>" <% if category.id == @image.category_id %>SELECTED<% end %> >
+       <%= category.name %>
+      </option>
+     <% end %>
+    </select>
+<br><br>

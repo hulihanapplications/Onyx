@@ -1,0 +1,23 @@
+
+
+<div class="admin_menu">
+ <div class="right_menu_top"></div>
+ <div class="right_menu_middle">
+ <div align=center>
+ 	<% if File.exists?(RAILS_ROOT + "/public" + "/themes/#{@theme}/images/logo_admin.png") %>
+  		<%= link_to image_tag("/themes/#{@theme}/images/logo_admin.png", :border => 0, :alt => "Admin Home", :class => "logo"), {:action => "index", :controller => "main"} %>
+	<% end %>
+ </div>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Add Image", {:action => "new", :controller => "admin/images"}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Edit/Destroy Images", {:action => "list", :controller => "admin/images"}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Edit Categories", {:action => "list", :controller => "admin/categories"}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Edit My Account", {:action => "edit", :controller => "admin/users", :id => session[:user][:id]}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Edit Users", {:action => "list", :controller => "admin/users"}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Edit Settings", {:action => "list", :controller => "admin/settings"}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "View Gallery", {:action => "index", :controller => "../browse"}, :class => "admin_link" %><br>
+ &nbsp;&nbsp;&nbsp;-&nbsp;<%= link_to "Log Out", {:action => "logout", :controller => "admin/users"}, :class => "admin_link" %><br>
+
+ </div>
+
+  <div class="right_menu_bottom"></div>
+</div>

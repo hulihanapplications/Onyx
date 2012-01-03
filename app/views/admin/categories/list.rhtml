@@ -1,0 +1,29 @@
+<h1>Listing <b class="highlight"><%= @categories.size %></b> Categories</h1>
+
+<table cellpadding=0 cellspacing=0 class="list_table">
+  <tr>
+   <td><b>Name</b></td>
+   <td><b>Description</b></td>
+   <td><b>Created At</b></td>
+   <td><b>Images</b></td>
+   <td><b></b></td>
+  </tr>
+
+  
+<% for category in @categories %>
+  <tr class = "<%= cycle("row_a", "row_b") %>" >
+    <td style="width:150px" ><%=h truncate(category.name, 50) %></td>
+    <td style="width:200px" ><%=h truncate(category.description, 100) %></td>
+    <td style="width:150px" ><%= category.created_at.strftime("%I:%m %p %m/%d/%y")  %></td>
+    <td style="width:50px"><%= category.images.size %></td>
+    <td style="width:50px"><div class="admin_view_bg"><%= link_to 'View', {:action => 'view_category', :controller => "../browse", :id => category.id}%></div></td>
+    <td style="width:50px"><div class="admin_edit_bg"><%= link_to 'Edit', :action => 'edit', :id => category %></div></td>
+    <td style="width:50px"><div class="admin_destroy_bg"><%= link_to 'Destroy', { :action => 'destroy', :id => category }, :confirm => 'This will also delete all images under this category. Are you sure?', :method => :post %></div></td>
+  </tr>
+<% end %>
+</table>
+
+
+<br />
+
+<%= link_to 'New category', :action => 'new' %>

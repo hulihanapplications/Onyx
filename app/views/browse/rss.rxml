@@ -1,0 +1,26 @@
+xml.instruct! :xml, :version=>"1.0" 
+xml.rss(:version=>"2.0"){
+  xml.channel  {
+    xml.title(@title)
+    xml.link("http://" + @site_url)
+    xml.description(@meta_desc)
+    xml.language("English")
+    for item in @images
+      xml.item do
+        if item.description == "No Descripton." || item.description == "None"
+          xml.title(item.url)
+        else # print description, only if it is not default
+          xml.title(item.description)
+        end
+
+        xml.description(item.description)
+        # rfc822
+        xml.pubDate(item.created_at.rfc2822)
+      xml.thumb_url("http://" + @site_url + "/images/thumbnails/#{item.url}")
+      xml.pinky_url("http://" + @site_url + "/images/pinky/#{item.url}")
+      xml.link("http://" + @site_url + "/browse/view/#{item.id}")
+      xml.guid("http://" + @site_url + "/browse/view/#{item.id}")
+      end
+    end
+  }
+}

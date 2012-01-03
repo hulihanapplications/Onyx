@@ -1,0 +1,48 @@
+<h1>Listing <b class="highlight"><%= @images.size %></b> images</h1>
+<%= link_to 'New image', :action => 'new' %>
+
+<div style="font-size:10px">
+<table cellpadding=0 cellspacing=0 class="list_table">
+  <tr>
+   <td><b></b></td>
+   <td><b>Filename</b></td>
+   <td><b>Description</b></td>
+   <td><b>Category</b></td>
+   <td><b>Dimensions</b></td>
+   <td><b>Comments</b></td>
+   <td><b>Created At</b></td>
+   <td><b></b></td>
+  </tr>
+
+<% for image in @images %>
+  <tr class = "<%= cycle("row_a", "row_b") %>" >
+    <td style="width:110px">
+		 	 <% if @tooltips_enabled == "1" %>
+			    <a href="/browse/view/<%= image.id%>"  onmouseout="UnTip()" onmouseover="Tip('<div class=\'tooltip\'><img src=\'/images/normal/<%= image.url %>\' width=\'<%= @tooltip_width %>\'></div> ')">
+			    	<img alt="<%= image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= image.url %>" title="<%= image.description %>" />
+				</a>
+		 	 <% else %>
+			    <a href="/browse/view/<%= image.id%>" >
+			    	<img alt="<%= image.description %>" class="thumb_link_image" src="/images/thumbnails/<%= image.url %>" title="<%= image.description %>" />
+				</a>
+	 		 <% end %>
+			 <br>
+	</td>
+    <td style="width:150px" ><%=h truncate(image.url, 50) %></td>
+    <td style="width:150px"><%=h truncate(image.description, 50) %></td>
+    <td style="width:75px"><%=h truncate(image.category.name, 30) %></td>
+    <td style="width:50px;text-align:center"><%= "#{image.width} x #{image.height}" %></td>
+    <td style="width:50px;text-align:center"><%= image.comments.size %></td>
+    <td style="width:75px"><%= image.created_at.strftime("%I:%M %p <BR> %m/%d/%y") %></td>
+    <td style="width:50px"><div class="admin_view_bg"><%= link_to 'View', {:action => 'view', :id => image, :controller => "../browse"} %></div></td>
+    <td style="width:50px"><div class="admin_edit_bg"><%= link_to 'Edit', :action => 'edit', :id => image %></div></td>
+    <td style="width:50px"><div class="admin_destroy_bg"><%= link_to 'Destroy', { :action => 'destroy', :id => image }, :confirm => 'Are you sure about this?', :method => :post %></div></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+
+<br />
+
+<%= link_to 'New image', :action => 'new' %>

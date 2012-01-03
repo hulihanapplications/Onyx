@@ -1,0 +1,50 @@
+
+<div class="right_menu">
+ <div class="right_menu_top"></div>
+
+ <div class="right_menu_middle">
+
+ <div align=center >
+ 	<% if File.exists?(RAILS_ROOT + "/public" + "/themes/#{@theme}/images/logo.png") %>
+	  <%= link_to (image_tag "/themes/#{@theme}/images/logo.png", :border => 0, :class => "logo"), "http://www.hulihanapplications.com/projects_onyx.php", :class => "logo"%> 
+	<% end %>
+ </div>
+ 
+ <span class="right_menu_item">Categories</span><br>
+  <% @categories = Category.find(:all, :limit => 500) %>
+  <% for cat in @categories %> 
+   <% @how_many_images = Image.count("id", :conditions => ["category_id = ?", cat.id], :limit => 10000) %>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{cat.name}(#{@how_many_images})", {:action => "view_category", :id => cat.id}, :class => "category_link"  %><br>
+  <% end %>  
+
+ 
+  <% @tags = Tag.find(:all, :select => "name, count(name)", :group => "name", :limit => 1000) %>
+  <% if @tags.size == 0 %>
+  <% else %>
+   <span class="right_menu_item">Tags</span><br>
+   <% for tag in @tags %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/tag/<%= tag.name %>" class="tag_link"><%= truncate(tag.name, 30) %> (<%= tag["count(name)"] %>)</a><br>
+   <% end %>
+  <% end %>
+ 
+ <span class="right_menu_item">Links</span><br> 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Gallery Home", {:action => "index"}, :class => "category_link" %>
+
+ <br><br>
+
+ <div align=center class="rss">
+    <%= link_to image_tag("/themes/#{@theme}/images/rss.png", :alt => "view rss feed", :border => 0, :class => "rss"),
+                :action => "rss", :controller => "browse"
+    %>
+    <br>
+    <span style="font-size:10px">View RSS Feed</span>
+ </div>
+
+
+
+</div>
+
+</div>
+
+<div class="right_menu_bottom"></div>
+

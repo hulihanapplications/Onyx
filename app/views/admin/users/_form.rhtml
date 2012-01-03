@@ -1,0 +1,27 @@
+<%= error_messages_for 'user' %>
+
+<!--[form:user]-->
+<p><label for="user_first_name">First name</label><br/>
+<%= text_field 'user', 'first_name'  %></p>
+
+<p><label for="user_last_name">Last name</label><br/>
+<%= text_field 'user', 'last_name'  %></p>
+
+<p><label for="user_username">Username</label><br/>
+<%= text_field 'user', 'username'  %></p>
+
+<p><label for="user_phone_number">Phone number</label><br/>
+<%= text_field 'user', 'phone_number'  %></p>
+
+<p><label for="user_created_at">Created at</label><br/>
+<%= datetime_select 'user', 'created_at'  %></p>
+
+<p><label for="user_updated_at">Updated at</label><br/>
+<%= datetime_select 'user', 'updated_at'  %></p>
+
+<p><label for="post_updated_at">New Password</label><br/>
+<%= password_field 'user', 'password' , :class => "admin_input" %></p>
+
+<p><label for="post_updated_at">Confirm Password</label><br/>
+<%= password_field 'user', 'password_confirmation' , :class => "admin_input" %></p>
+

@@ -1,0 +1,19 @@
+  <table width=100%  style="margin:5px">
+ <% for @comment in @comments %>
+  <tr class="<%= cycle("admin_row_a", "admin_row_b") %> ">
+    <td><b><%= @comment.name %></b></td>
+    <td><%= @comment.ip %></td>
+    <td style="width:200px" align=center>   <%= h truncate(@comment.comment, 100) %></td>
+    <td><%= "#{truncate(@comment.created_at.strftime("%m/%d/%y"), 40)}" %></td>
+    <td style="width:20px">
+
+    <%= link_to image_tag("/themes/#{@theme}/images/icon_destroy.png", :alt => "destroy comment", :title => "destroy", :border => 0),
+        {:action => "destroy_comment", :id => @comment.id, :image_id => @image.id }, 
+        :confirm => "Are you sure you want to delete this comment?"
+    %>
+
+    </td>
+   </tr>
+<% end %>
+</table>
+

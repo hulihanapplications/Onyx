@@ -1,0 +1,45 @@
+<br>
+<table>
+ <tr>
+  <td valign=top>
+<div style="margin:7px">
+ <%= render :partial => "category_info" %>
+</div>
+</td>
+<td valign=top align=left>
+<div style="margin:7px">
+
+ <%= render :partial => "image_info" %>
+</div>
+</td>
+</tr>
+</table>
+
+<table class="image_table" align=left>
+ <tr>
+  <td align=left>
+  	<% if @dummy_watermark_enabled == "1" %>
+	 <div style="background-image:url(/themes/<%= @theme %>/images/watermark.png);position:absolute;width:<%= @image.width %>px;height:<%= @image.height %>px;z-index:49">
+	 </div>
+	<% end %>
+	
+	<%= image_tag("normal/" + @image.url, :style => "position:absolute;z-index:1;") %><%# Dave: This now allows the images to 'float', over any content. This helps when customizing the layout that might interfere with the template, when a large image is shown. %>
+
+  </td>
+ </tr>
+ <tr>
+  <td align=left>
+   <%# Dave: take a fraction of the height of the image and make a line break for each one, that way the absolute image isn't floating over the comments box %>
+   <% @breaks = @image.height.to_i  / 12 %>
+   <% for i in 1..@breaks %> 
+    <br>
+   <% end %>
+   
+   <%= render :partial => "view_comments" %>
+   
+  </td>
+ </tr>
+</table>
+ 
+
+

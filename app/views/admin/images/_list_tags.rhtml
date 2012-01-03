@@ -1,0 +1,17 @@
+
+<div align=center>
+<table style="margin:5px;" align=left>
+<% for tag in @tags %>
+ <tr class="<%= cycle("admin_row_a", "admin_row_b") %> ">
+  <td  style="width:200px"><%= tag.name %></td>
+  <td align=right>
+   <%= link_to image_tag("/themes/#{@theme}/images/icon_destroy.png", :alt => "destroy tag: #{tag.name}", :title => "destroy", :border => 0),
+       {:action => "destroy_tag", :id => tag.id, :image_id => @image.id},
+       :confirm => "Are you sure you want to delete the tag: #{tag.name}?"
+    %>
+  </td>
+ </tr>
+<% end %>
+</table>
+</div>
+
